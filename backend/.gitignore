@@ -18,3 +18,4 @@ yarn-error.log
 bootstrap/cache/*.php
 *.log
 !.gitkeep
+storage/framework/cache/data/
