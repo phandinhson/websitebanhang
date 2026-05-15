@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use MongoDB\Laravel\Eloquent\Model as Eloquent;
+
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
@@ -23,7 +24,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property bool   $is_active   Trạng thái tài khoản
  * @property array  $cart        Giỏ hàng của người dùng
  */
-class User extends Eloquent implements AuthenticatableContract, AuthorizableContract, JWTSubject
+class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
     use Authenticatable, Authorizable;
 
@@ -31,7 +32,7 @@ class User extends Eloquent implements AuthenticatableContract, AuthorizableCont
     protected $collection = 'users';
 
     // Kết nối database
-    protected $connection = 'mongodb';
+    protected $connection = 'pgsql';
 
     /**
      * Các trường được phép gán hàng loạt

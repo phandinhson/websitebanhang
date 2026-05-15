@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mongodb'),
+    'default' => env('DB_CONNECTION', 'pgsql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -62,31 +62,21 @@ return [
         ],
 
         // ============================================================
-        // Kết nối MongoDB - Database chính của dự án
+        // Kết nối PostgreSQL - Database chính của dự án
         // ============================================================
-        'mongodb' => [
-            'driver'   => 'mongodb',
-            'dsn'      => env('MONGO_URI', 'mongodb://localhost:27017/websitebanhang'),
-            'database' => env('MONGO_DB', 'websitebanhang'),
-
-            /*
-            | Tuỳ chọn kết nối MongoDB nâng cao
-            |
-            | Nếu không dùng MONGO_URI, có thể cấu hình thủ công:
-            |
-            | 'host'     => env('DB_HOST', '127.0.0.1'),
-            | 'port'     => env('DB_PORT', 27017),
-            | 'database' => env('MONGO_DB', 'websitebanhang'),
-            | 'username' => env('DB_USERNAME'),
-            | 'password' => env('DB_PASSWORD'),
-            |
-            | Tuỳ chọn SSL/TLS:
-            | 'options' => [
-            |     'ssl' => true,
-            |     'replicaSet' => env('MONGO_REPLICA_SET'),
-            |     'authSource' => env('MONGO_AUTH_SOURCE', 'admin'),
-            | ],
-            */
+        'pgsql' => [
+            'driver'         => 'pgsql',
+            'url'            => env('DB_URL'),
+            'host'           => env('DB_HOST', '127.0.0.1'),
+            'port'           => env('DB_PORT', '5432'),
+            'database'       => env('DB_DATABASE', 'websitebanhang'),
+            'username'       => env('DB_USERNAME', 'laraveluser'),
+            'password'       => env('DB_PASSWORD', 'laravel123'),
+            'charset'        => 'utf8',
+            'prefix'         => '',
+            'prefix_indexes' => true,
+            'search_path'    => 'public',
+            'sslmode'        => 'prefer',
         ],
 
     ],

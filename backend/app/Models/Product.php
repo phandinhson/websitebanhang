@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
 
-use MongoDB\Laravel\Eloquent\Model as Eloquent;
+
 use Illuminate\Support\Str;
 
 /**
@@ -22,13 +23,13 @@ use Illuminate\Support\Str;
  * @property float  $rating       Điểm đánh giá trung bình (0-5)
  * @property int    $review_count Số lượng đánh giá
  */
-class Product extends Eloquent
+class Product extends Model
 {
     // Tên collection trong MongoDB
     protected $collection = 'products';
 
     // Kết nối database
-    protected $connection = 'mongodb';
+    protected $connection = 'pgsql';
 
     /**
      * Các trường được phép gán hàng loạt

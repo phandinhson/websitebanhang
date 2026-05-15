@@ -133,7 +133,7 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'        => 'required|string|max:255',
-            'slug'        => 'nullable|string|unique:mongodb.categories,slug',
+            'slug'        => 'nullable|string|unique:categories,slug',
             'description' => 'nullable|string',
             'image'       => 'nullable|string',
             'parent_id'   => 'nullable|string',
@@ -214,7 +214,7 @@ class CategoryController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name'        => 'sometimes|string|max:255',
-            'slug'        => "sometimes|string|unique:mongodb.categories,slug,{$id},_id",
+            'slug'        => "sometimes|string|unique:categories,slug,{$id},_id",
             'description' => 'sometimes|nullable|string',
             'image'       => 'sometimes|nullable|string',
             'parent_id'   => 'sometimes|nullable|string',

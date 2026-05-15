@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
 
-use MongoDB\Laravel\Eloquent\Model as Eloquent;
+
 use Illuminate\Support\Str;
 
 /**
@@ -17,13 +18,13 @@ use Illuminate\Support\Str;
  * @property bool        $is_active   Trạng thái hiển thị
  * @property int         $sort_order  Thứ tự hiển thị
  */
-class Category extends Eloquent
+class Category extends Model
 {
     // Tên collection trong MongoDB
     protected $collection = 'categories';
 
     // Kết nối database
-    protected $connection = 'mongodb';
+    protected $connection = 'pgsql';
 
     /**
      * Các trường được phép gán hàng loạt

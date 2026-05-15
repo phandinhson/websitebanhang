@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
 
-use MongoDB\Laravel\Eloquent\Model as Eloquent;
+
 
 /**
  * Model Đơn hàng - Lưu trữ thông tin đơn hàng của khách hàng
@@ -21,13 +22,13 @@ use MongoDB\Laravel\Eloquent\Model as Eloquent;
  * @property string $order_code       Mã đơn hàng (duy nhất, dễ đọc)
  * @property array  $status_history   Lịch sử thay đổi trạng thái
  */
-class Order extends Eloquent
+class Order extends Model
 {
     // Tên collection trong MongoDB
     protected $collection = 'orders';
 
     // Kết nối database
-    protected $connection = 'mongodb';
+    protected $connection = 'pgsql';
 
     /**
      * Các trạng thái đơn hàng hợp lệ
