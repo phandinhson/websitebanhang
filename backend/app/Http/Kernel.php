@@ -48,8 +48,6 @@ class Kernel extends HttpKernel
 
         // Middleware cho API routes (stateless - không dùng session)
         'api' => [
-            // JWT middleware - làm mới token tự động
-            \Tymon\JWTAuth\Http\Middleware\RefreshToken::class,
             // Giới hạn số request (rate limiting)
             \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             // Resolve route model binding
