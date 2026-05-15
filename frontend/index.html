@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ShopVN - Mua sắm trực tuyến uy tín, giá tốt nhất Việt Nam">
+  <title>ShopVN - Trang Chủ</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ── Sale Banner ─────────────────────────────────────────── -->
+<div class="sale-banner">
+  🎉 Miễn phí vận chuyển cho đơn hàng từ 500.000đ &nbsp;|&nbsp;
+  <a href="pages/products.html">Mua ngay →</a>
+  &nbsp;<span data-dismiss style="cursor:pointer;opacity:.7">✕</span>
+</div>
+
+<!-- ── Header ──────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="container header-inner">
+    <!-- Logo -->
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6" stroke="white" stroke-width="2"/><path d="M16 10a4 4 0 01-8 0" stroke="white" stroke-width="2" fill="none"/></svg>
+      </div>
+      <div>
+        <span>ShopVN</span>
+        <span class="brand-sub">Mua sắm tiện lợi</span>
+      </div>
+    </a>
+
+    <!-- Main Nav -->
+    <nav class="main-nav" aria-label="Điều hướng chính">
+      <ul>
+        <li><a href="index.html" class="active">Trang chủ</a></li>
+        <li><a href="pages/products.html">Sản phẩm</a></li>
+        <li><a href="pages/products.html?sort=sale">Khuyến mãi</a></li>
+        <li><a href="#about">Giới thiệu</a></li>
+        <li><a href="#contact">Liên hệ</a></li>
+      </ul>
+    </nav>
+
+    <!-- Search -->
+    <div class="header-search">
+      <input type="search" placeholder="Tìm kiếm sản phẩm..." aria-label="Tìm kiếm">
+      <button aria-label="Tìm kiếm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Actions -->
+    <div class="header-actions">
+      <!-- Cart -->
+      <a href="pages/cart.html" class="cart-btn" aria-label="Giỏ hàng">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span class="cart-count" style="display:none">0</span>
+      </a>
+
+      <!-- Auth links (guest) -->
+      <div class="auth-links" id="guest-links">
+        <a href="pages/login.html">Đăng nhập</a>
+        <a href="pages/register.html" class="btn-login register-link">Đăng ký</a>
+      </div>
+
+      <!-- User menu (logged in) -->
+      <div class="user-menu" id="user-menu" style="display:none">
+        <button class="user-avatar" aria-label="Tài khoản">US</button>
+        <div class="user-dropdown">
+          <div style="padding:12px 18px;border-bottom:1px solid #eee">
+            <div style="font-weight:700" class="user-name">Người dùng</div>
+            <div style="font-size:.8rem;color:#999" class="user-email">user@example.com</div>
+          </div>
+          <a href="pages/profile.html">👤 Tài khoản của tôi</a>
+          <a href="pages/profile.html#orders">📦 Đơn hàng</a>
+          <a href="pages/admin/dashboard.html" class="admin-nav-link" style="display:none">⚙️ Quản trị</a>
+          <hr>
+          <a href="#" data-logout>🚪 Đăng xuất</a>
+        </div>
+      </div>
+
+      <!-- Hamburger -->
+      <button class="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" role="dialog" aria-label="Menu điều hướng">
+  <div class="mobile-nav-overlay"></div>
+  <div class="mobile-nav-panel">
+    <div class="mobile-nav-header">
+      <span style="font-weight:700;font-size:1.1rem;color:#e74c3c">ShopVN</span>
+      <button class="mobile-nav-close" aria-label="Đóng">✕</button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html">🏠 Trang chủ</a>
+      <a href="pages/products.html">🛍️ Sản phẩm</a>
+      <a href="pages/products.html?sort=sale">🎉 Khuyến mãi</a>
+      <a href="pages/cart.html">🛒 Giỏ hàng</a>
+      <a href="pages/profile.html">👤 Tài khoản</a>
+      <a href="pages/login.html">🔑 Đăng nhập</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ── Hero Banner ─────────────────────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">🔥 Siêu sale tháng này</div>
+      <h1>Mua sắm thông minh<br>Giá tốt nhất Việt Nam</h1>
+      <p>Hàng ngàn sản phẩm chính hãng, giao hàng nhanh toàn quốc. Đảm bảo chất lượng — hoàn tiền nếu không hài lòng.</p>
+      <div class="hero-actions">
+        <a href="pages/products.html" class="btn-hero-primary">Mua sắm ngay</a>
+        <a href="pages/products.html?sort=sale" class="btn-hero-outline">Xem khuyến mãi</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-placeholder">
+        🛍️
+        <p>Hàng ngàn sản phẩm</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stats Banner ────────────────────────────────────────── -->
+<div class="stats-banner">
+  <div class="container stats-inner">
+    <div class="stat-item">
+      <div class="stat-value">50K+</div>
+      <div class="stat-label">Khách hàng</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">10K+</div>
+      <div class="stat-label">Sản phẩm</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">500+</div>
+      <div class="stat-label">Thương hiệu</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">99%</div>
+      <div class="stat-label">Hài lòng</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Featured Categories ─────────────────────────────────── -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Danh mục nổi bật</h2>
+      <a href="pages/products.html" class="section-link">Xem tất cả →</a>
+    </div>
+    <div class="categories-grid" id="categories-grid">
+      <!-- Rendered by JS; fallback static below -->
+      <a href="pages/products.html?category=1" class="category-card">
+        <div class="category-icon">👗</div>
+        <div class="category-name">Thời trang</div>
+        <div class="category-count">1.2K sản phẩm</div>
+      </a>
+      <a href="pages/products.html?category=2" class="category-card">
+        <div class="category-icon">📱</div>
+        <div class="category-name">Điện tử</div>
+        <div class="category-count">860 sản phẩm</div>
+      </a>
+      <a href="pages/products.html?category=3" class="category-card">
+        <div class="category-icon">🏠</div>
+        <div class="category-name">Nhà cửa</div>
+        <div class="category-count">540 sản phẩm</div>
+      </a>
+      <a href="pages/products.html?category=4" class="category-card">
+        <div class="category-icon">⚽</div>
+        <div class="category-name">Thể thao</div>
+        <div class="category-count">320 sản phẩm</div>
+      </a>
+      <a href="pages/products.html?category=5" class="category-card">
+        <div class="category-icon">📚</div>
+        <div class="category-name">Sách</div>
+        <div class="category-count">240 sản phẩm</div>
+      </a>
+      <a href="pages/products.html?category=6" class="category-card">
+        <div class="category-icon">💄</div>
+        <div class="category-name">Làm đẹp</div>
+        <div class="category-count">710 sản phẩm</div>
+      </a>
+      <a href="pages/products.html?category=7" class="category-card">
+        <div class="category-icon">🎮</div>
+        <div class="category-name">Game</div>
+        <div class="category-count">180 sản phẩm</div>
+      </a>
+      <a href="pages/products.html?category=8" class="category-card">
+        <div class="category-icon">🌿</div>
+        <div class="category-name">Sức khỏe</div>
+        <div class="category-count">290 sản phẩm</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Featured Products ───────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Sản phẩm nổi bật</h2>
+      <a href="pages/products.html" class="section-link">Xem tất cả →</a>
+    </div>
+
+    <!-- Loading skeleton / real content injected by JS -->
+    <div class="products-grid" id="featured-products-grid">
+      <!-- Skeleton placeholders -->
+      <div class="product-card"><div class="product-card-img skeleton" style="aspect-ratio:1"></div><div class="product-card-body"><div class="skeleton" style="height:12px;width:60%;margin-bottom:8px"></div><div class="skeleton" style="height:16px;width:90%;margin-bottom:10px"></div><div class="skeleton" style="height:20px;width:50%"></div></div></div>
+      <div class="product-card"><div class="product-card-img skeleton" style="aspect-ratio:1"></div><div class="product-card-body"><div class="skeleton" style="height:12px;width:60%;margin-bottom:8px"></div><div class="skeleton" style="height:16px;width:90%;margin-bottom:10px"></div><div class="skeleton" style="height:20px;width:50%"></div></div></div>
+      <div class="product-card"><div class="product-card-img skeleton" style="aspect-ratio:1"></div><div class="product-card-body"><div class="skeleton" style="height:12px;width:60%;margin-bottom:8px"></div><div class="skeleton" style="height:16px;width:90%;margin-bottom:10px"></div><div class="skeleton" style="height:20px;width:50%"></div></div></div>
+      <div class="product-card"><div class="product-card-img skeleton" style="aspect-ratio:1"></div><div class="product-card-body"><div class="skeleton" style="height:12px;width:60%;margin-bottom:8px"></div><div class="skeleton" style="height:16px;width:90%;margin-bottom:10px"></div><div class="skeleton" style="height:20px;width:50%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Sale Banner Section ─────────────────────────────────── -->
+<section class="section section-alt">
+  <div class="container">
+    <div style="background:linear-gradient(135deg,#e74c3c,#c0392b);border-radius:16px;padding:40px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;color:#fff">
+      <div>
+        <div style="font-size:.85rem;opacity:.8;margin-bottom:6px">⏰ Ưu đãi có hạn</div>
+        <h2 style="font-size:1.8rem;font-weight:800;margin-bottom:8px">Giảm đến 50% hàng ngàn sản phẩm</h2>
+        <p style="opacity:.85">Chỉ trong tuần này — Đừng bỏ lỡ!</p>
+      </div>
+      <a href="pages/products.html?sort=sale" style="background:#fff;color:#e74c3c;padding:14px 32px;border-radius:30px;font-weight:700;font-size:1rem;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.2)">
+        Xem khuyến mãi
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── New Arrivals ────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Hàng mới về</h2>
+      <a href="pages/products.html?sort=newest" class="section-link">Xem tất cả →</a>
+    </div>
+    <div class="products-grid" id="new-products-grid">
+      <div class="product-card"><div class="product-card-img skeleton" style="aspect-ratio:1"></div><div class="product-card-body"><div class="skeleton" style="height:12px;width:60%;margin-bottom:8px"></div><div class="skeleton" style="height:16px;width:90%;margin-bottom:10px"></div><div class="skeleton" style="height:20px;width:50%"></div></div></div>
+      <div class="product-card"><div class="product-card-img skeleton" style="aspect-ratio:1"></div><div class="product-card-body"><div class="skeleton" style="height:12px;width:60%;margin-bottom:8px"></div><div class="skeleton" style="height:16px;width:90%;margin-bottom:10px"></div><div class="skeleton" style="height:20px;width:50%"></div></div></div>
+      <div class="product-card"><div class="product-card-img skeleton" style="aspect-ratio:1"></div><div class="product-card-body"><div class="skeleton" style="height:12px;width:60%;margin-bottom:8px"></div><div class="skeleton" style="height:16px;width:90%;margin-bottom:10px"></div><div class="skeleton" style="height:20px;width:50%"></div></div></div>
+      <div class="product-card"><div class="product-card-img skeleton" style="aspect-ratio:1"></div><div class="product-card-body"><div class="skeleton" style="height:12px;width:60%;margin-bottom:8px"></div><div class="skeleton" style="height:16px;width:90%;margin-bottom:10px"></div><div class="skeleton" style="height:20px;width:50%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Newsletter ──────────────────────────────────────────── -->
+<section class="newsletter-section">
+  <div class="container newsletter-inner">
+    <div class="newsletter-text">
+      <h2>Đăng ký nhận ưu đãi</h2>
+      <p>Nhận thông tin khuyến mãi và sản phẩm mới nhất qua email.</p>
+    </div>
+    <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+      <input type="email" placeholder="Nhập địa chỉ email của bạn..." required>
+      <button type="submit" class="btn btn-primary">Đăng ký</button>
+    </form>
+  </div>
+</section>
+
+<!-- ── Footer ──────────────────────────────────────────────── -->
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <a href="index.html" class="logo" style="color:#fff;margin-bottom:14px">
+          <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" fill="white"/></svg></div>
+          ShopVN
+        </a>
+        <p>Nền tảng mua sắm trực tuyến uy tín hàng đầu Việt Nam. Cam kết hàng chính hãng, giao hàng nhanh và dịch vụ khách hàng tận tâm.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">f</a>
+          <a href="#" class="social-link" aria-label="Instagram">📷</a>
+          <a href="#" class="social-link" aria-label="YouTube">▶</a>
+          <a href="#" class="social-link" aria-label="TikTok">♪</a>
+        </div>
+      </div>
+
+      <!-- Links -->
+      <div class="footer-col">
+        <h4>Hỗ trợ khách hàng</h4>
+        <ul>
+          <li><a href="#">Trung tâm trợ giúp</a></li>
+          <li><a href="#">Chính sách đổi trả</a></li>
+          <li><a href="#">Chính sách vận chuyển</a></li>
+          <li><a href="#">Bảo hành sản phẩm</a></li>
+          <li><a href="#">Hướng dẫn mua hàng</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Về ShopVN</h4>
+        <ul>
+          <li><a href="#about" id="about">Giới thiệu</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+          <li><a href="#">Tin tức</a></li>
+          <li><a href="#">Đối tác</a></li>
+          <li><a href="#">Chính sách bảo mật</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-col">
+        <h4>Liên hệ</h4>
+        <ul class="footer-contact">
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            123 Đường Lê Lợi, Q.1, TP.HCM
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 012.12 1.18 2 2 0 014.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            1800 123 456 (Miễn phí)
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            hotro@shopvn.vn
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            8:00 – 22:00 mỗi ngày
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 ShopVN. Bảo lưu mọi quyền.</p>
+      <div class="footer-payments">
+        <span class="payment-badge">VISA</span>
+        <span class="payment-badge">MasterCard</span>
+        <span class="payment-badge">MoMo</span>
+        <span class="payment-badge">ZaloPay</span>
+        <span class="payment-badge">COD</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="back-to-top" aria-label="Về đầu trang"
+  style="display:none;position:fixed;bottom:28px;right:28px;width:44px;height:44px;
+         border-radius:50%;background:#e74c3c;color:#fff;border:none;cursor:pointer;
+         box-shadow:0 4px 14px rgba(231,76,60,.4);z-index:999;font-size:1.1rem;
+         align-items:center;justify-content:center;">↑</button>
+
+<!-- Toast container -->
+<div class="toast-container"></div>
+
+<!-- Scripts -->
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/products.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Page init
+  document.addEventListener('appReady', async () => {
+    // Load featured products
+    await Products.initFeatured('featured-products-grid', 8);
+
+    // Load new arrivals with newest sort
+    try {
+      const data = await API.getProducts({ per_page: 4, sort: 'newest' });
+      const ps   = data.data || data.products || [];
+      document.getElementById('new-products-grid').innerHTML =
+        ps.map(p => Products.renderProductCard(p)).join('') || '';
+    } catch { /* noop */ }
+  });
+
+  function handleNewsletter(e) {
+    e.preventDefault();
+    showToast('Đăng ký thành công! Cảm ơn bạn.', 'success');
+    e.target.reset();
+  }
+</script>
+</body>
+</html>

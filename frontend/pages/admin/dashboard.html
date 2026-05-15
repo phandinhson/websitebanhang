@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Admin ShopVN</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/admin.css">
+</head>
+<body class="admin-body">
+
+<!-- ── Sidebar ─────────────────────────────────────────────── -->
+<aside class="admin-sidebar" id="admin-sidebar">
+  <a href="dashboard.html" class="sidebar-brand">
+    <div class="brand-icon">🛍️</div>
+    <div class="brand-text">
+      <strong>ShopVN Admin</strong>
+      <span>Quản trị hệ thống</span>
+    </div>
+  </a>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Tổng quan</div>
+    <a href="dashboard.html" class="sidebar-link active">
+      <span class="nav-icon">📊</span> Dashboard
+    </a>
+
+    <div class="nav-section-label">Quản lý</div>
+    <a href="products.html" class="sidebar-link">
+      <span class="nav-icon">🛍️</span> Sản phẩm
+    </a>
+    <a href="#" class="sidebar-link" onclick="toggleSubMenu('categories-sub',this)">
+      <span class="nav-icon">📂</span> Danh mục
+      <span class="has-sub">▸</span>
+    </a>
+    <div class="sub-menu" id="categories-sub">
+      <a href="#" class="sidebar-link">Danh sách danh mục</a>
+      <a href="#" class="sidebar-link">Thêm danh mục</a>
+    </div>
+    <a href="orders.html" class="sidebar-link">
+      <span class="nav-icon">📦</span> Đơn hàng
+      <span class="nav-badge" id="pending-orders-badge">0</span>
+    </a>
+    <a href="#" class="sidebar-link">
+      <span class="nav-icon">👥</span> Khách hàng
+    </a>
+    <a href="#" class="sidebar-link">
+      <span class="nav-icon">📝</span> Đánh giá
+    </a>
+
+    <div class="nav-section-label">Marketing</div>
+    <a href="#" class="sidebar-link">
+      <span class="nav-icon">🏷️</span> Mã giảm giá
+    </a>
+    <a href="#" class="sidebar-link">
+      <span class="nav-icon">🎯</span> Khuyến mãi
+    </a>
+    <a href="#" class="sidebar-link">
+      <span class="nav-icon">📧</span> Email Marketing
+    </a>
+
+    <div class="nav-section-label">Báo cáo</div>
+    <a href="#" class="sidebar-link">
+      <span class="nav-icon">📈</span> Doanh thu
+    </a>
+    <a href="#" class="sidebar-link">
+      <span class="nav-icon">📉</span> Tồn kho
+    </a>
+
+    <div class="nav-section-label">Hệ thống</div>
+    <a href="#" class="sidebar-link">
+      <span class="nav-icon">⚙️</span> Cài đặt
+    </a>
+    <a href="#" class="sidebar-link">
+      <span class="nav-icon">🔧</span> Nhật ký hệ thống
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar" data-admin-avatar>AD</div>
+      <div class="sidebar-user-info">
+        <strong data-admin-name>Admin</strong>
+        <span data-admin-email>admin@shopvn.vn</span>
+      </div>
+    </div>
+    <button class="sidebar-logout" data-logout>
+      🚪 Đăng xuất
+    </button>
+  </div>
+</aside>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- ── Main ────────────────────────────────────────────────── -->
+<div class="admin-main">
+
+  <!-- Header -->
+  <header class="admin-header">
+    <button class="sidebar-toggle" id="sidebar-toggle" onclick="openSidebar()" aria-label="Menu">☰</button>
+    <div class="admin-header-title">
+      <h1>Dashboard</h1>
+      <div class="breadcrumb">
+        <span>Admin</span><span>/</span><span>Tổng quan</span>
+      </div>
+    </div>
+    <div class="header-search-box">
+      <input type="search" placeholder="Tìm kiếm...">
+      <span class="search-icon">🔍</span>
+    </div>
+    <div class="header-actions">
+      <button class="header-icon-btn" title="Thông báo">
+        🔔<span class="notif-dot"></span>
+      </button>
+      <button class="header-icon-btn" title="Cài đặt">⚙️</button>
+      <a href="../../index.html" class="header-icon-btn" title="Xem website">🌐</a>
+      <div class="header-admin-user">
+        <div class="admin-avatar" data-admin-avatar>AD</div>
+        <span class="admin-user-name" data-admin-name>Admin</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="admin-content">
+    <!-- Page header -->
+    <div class="page-header">
+      <div>
+        <h2>Chào mừng trở lại! 👋</h2>
+        <p style="color:#95a5a6;font-size:.88rem;margin-top:4px" id="welcome-date">Hôm nay, ...</p>
+      </div>
+      <div class="page-header-actions">
+        <button class="btn btn-outline" onclick="exportReport()">📥 Xuất báo cáo</button>
+        <a href="products.html" class="btn btn-primary">+ Thêm sản phẩm</a>
+      </div>
+    </div>
+
+    <!-- ── Stats Cards ───────────────────────────────────── -->
+    <div class="stats-grid" id="stats-grid">
+      <div class="stat-card red">
+        <div class="stat-icon">📦</div>
+        <div class="stat-info">
+          <div class="stat-label">Đơn hàng hôm nay</div>
+          <div class="stat-value" id="stat-orders">—</div>
+          <div class="stat-change up" id="stat-orders-change">↑ —</div>
+        </div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-icon">💰</div>
+        <div class="stat-info">
+          <div class="stat-label">Doanh thu tháng</div>
+          <div class="stat-value" id="stat-revenue">—</div>
+          <div class="stat-change up" id="stat-revenue-change">↑ —</div>
+        </div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-icon">🛍️</div>
+        <div class="stat-info">
+          <div class="stat-label">Tổng sản phẩm</div>
+          <div class="stat-value" id="stat-products">—</div>
+          <div class="stat-change" id="stat-products-change" style="color:#95a5a6">—</div>
+        </div>
+      </div>
+      <div class="stat-card orange">
+        <div class="stat-icon">👥</div>
+        <div class="stat-info">
+          <div class="stat-label">Khách hàng mới</div>
+          <div class="stat-value" id="stat-users">—</div>
+          <div class="stat-change up" id="stat-users-change">↑ —</div>
+        </div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-info">
+          <div class="stat-label">Chờ xử lý</div>
+          <div class="stat-value" id="stat-pending">—</div>
+          <div class="stat-change" style="color:#f39c12">Cần xử lý</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Main Grid ─────────────────────────────────────── -->
+    <div class="dashboard-grid">
+
+      <!-- Chart placeholder -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <span class="admin-card-title">📈 Doanh thu 7 ngày qua</span>
+          <div class="admin-card-actions">
+            <select class="form-control" style="width:auto;font-size:.82rem;padding:5px 10px">
+              <option>7 ngày</option>
+              <option>30 ngày</option>
+              <option>3 tháng</option>
+            </select>
+          </div>
+        </div>
+        <div class="admin-card-body padded">
+          <div class="chart-placeholder" style="min-height:220px">
+            <div class="chart-icon">📊</div>
+            <p>Biểu đồ doanh thu</p>
+            <p style="font-size:.75rem;opacity:.6">Kết nối backend để xem dữ liệu</p>
+          </div>
+          <!-- Summary row -->
+          <div style="display:flex;gap:24px;margin-top:16px;padding-top:16px;border-top:1px solid #f0f2f5;flex-wrap:wrap">
+            <div><div style="font-size:.75rem;color:#95a5a6;margin-bottom:2px">Tổng tuần</div><div style="font-weight:700;color:#2c3e50" id="weekly-revenue">—</div></div>
+            <div><div style="font-size:.75rem;color:#95a5a6;margin-bottom:2px">Trung bình/ngày</div><div style="font-weight:700;color:#2c3e50" id="avg-daily-revenue">—</div></div>
+            <div><div style="font-size:.75rem;color:#95a5a6;margin-bottom:2px">Cao nhất</div><div style="font-weight:700;color:#27ae60" id="max-daily-revenue">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order status breakdown -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <span class="admin-card-title">📊 Trạng thái đơn hàng</span>
+        </div>
+        <div class="admin-card-body padded">
+          <div class="chart-placeholder" style="min-height:160px">
+            <div class="chart-icon">🍩</div>
+            <p>Biểu đồ tròn</p>
+          </div>
+          <div id="order-status-breakdown" style="margin-top:14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f8f9fa">
+              <div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#f39c12;display:inline-block"></span><span style="font-size:.85rem">Chờ xác nhận</span></div>
+              <span class="badge badge-warning" id="cnt-pending">—</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f8f9fa">
+              <div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#3498db;display:inline-block"></span><span style="font-size:.85rem">Đang giao</span></div>
+              <span class="badge badge-info" id="cnt-shipping">—</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f8f9fa">
+              <div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#27ae60;display:inline-block"></span><span style="font-size:.85rem">Đã giao</span></div>
+              <span class="badge badge-success" id="cnt-delivered">—</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0">
+              <div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#e74c3c;display:inline-block"></span><span style="font-size:.85rem">Đã huỷ</span></div>
+              <span class="badge badge-danger" id="cnt-cancelled">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Quick Links ───────────────────────────────────── -->
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <span class="admin-card-title">⚡ Thao tác nhanh</span>
+      </div>
+      <div class="quick-links-grid">
+        <a href="products.html" class="quick-link">
+          <div class="quick-link-icon" style="background:rgba(231,76,60,.1);color:#e74c3c">➕</div>
+          Thêm sản phẩm
+        </a>
+        <a href="orders.html" class="quick-link">
+          <div class="quick-link-icon" style="background:rgba(52,152,219,.1);color:#3498db">📦</div>
+          Xem đơn hàng
+        </a>
+        <a href="#" class="quick-link">
+          <div class="quick-link-icon" style="background:rgba(39,174,96,.1);color:#27ae60">📂</div>
+          Quản lý DM
+        </a>
+        <a href="#" class="quick-link">
+          <div class="quick-link-icon" style="background:rgba(243,156,18,.1);color:#f39c12">👥</div>
+          Khách hàng
+        </a>
+        <a href="#" class="quick-link">
+          <div class="quick-link-icon" style="background:rgba(155,89,182,.1);color:#9b59b6">🏷️</div>
+          Mã giảm giá
+        </a>
+        <a href="#" class="quick-link">
+          <div class="quick-link-icon" style="background:rgba(52,152,219,.1);color:#3498db">📈</div>
+          Báo cáo
+        </a>
+        <a href="#" class="quick-link">
+          <div class="quick-link-icon" style="background:rgba(231,76,60,.1);color:#e74c3c">📧</div>
+          Email
+        </a>
+        <a href="#" class="quick-link">
+          <div class="quick-link-icon" style="background:rgba(44,62,80,.1);color:#2c3e50">⚙️</div>
+          Cài đặt
+        </a>
+      </div>
+    </div>
+
+    <!-- ── Recent Orders ─────────────────────────────────── -->
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <span class="admin-card-title">🕐 Đơn hàng gần đây</span>
+        <a href="orders.html" class="btn btn-outline btn-sm">Xem tất cả</a>
+      </div>
+      <div class="admin-card-body">
+        <div id="recent-orders-loading" class="admin-loading">
+          <div class="spinner"></div><span>Đang tải...</span>
+        </div>
+        <div class="admin-table-wrap" id="recent-orders-wrap" style="display:none">
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>Mã ĐH</th>
+                <th>Khách hàng</th>
+                <th>Sản phẩm</th>
+                <th>Tổng tiền</th>
+                <th>Thanh toán</th>
+                <th>Trạng thái</th>
+                <th>Ngày đặt</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="recent-orders-tbody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Bottom Row: Top Products + Low Stock ──────────── -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <!-- Top Products -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <span class="admin-card-title">🏆 Sản phẩm bán chạy</span>
+          <a href="products.html" class="btn btn-outline btn-sm">Xem tất cả</a>
+        </div>
+        <div class="admin-card-body" id="top-products">
+          <div class="admin-loading"><div class="spinner"></div></div>
+        </div>
+      </div>
+
+      <!-- Low Stock Alert -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <span class="admin-card-title">⚠️ Sắp hết hàng</span>
+          <a href="products.html" class="btn btn-outline btn-sm">Xem tất cả</a>
+        </div>
+        <div class="admin-card-body" id="low-stock">
+          <div class="admin-loading"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Toast container -->
+<div class="admin-toast-container"></div>
+
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/main.js"></script>
+<script>
+  const STATUS_BADGES = {
+    pending:   { label: 'Chờ xác nhận', cls: 'badge-warning' },
+    confirmed: { label: 'Đã xác nhận',  cls: 'badge-info' },
+    shipping:  { label: 'Đang giao',    cls: 'badge-info' },
+    delivered: { label: 'Đã giao',      cls: 'badge-success' },
+    cancelled: { label: 'Đã huỷ',       cls: 'badge-danger' },
+  };
+
+  document.addEventListener('appReady', async () => {
+    Auth.redirectIfNotAdmin();
+    Auth.displayAdminUserInfo();
+
+    // Date
+    document.getElementById('welcome-date').textContent =
+      'Hôm nay, ' + new Date().toLocaleDateString('vi-VN', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+
+    await loadStats();
+    await loadRecentOrders();
+    await loadTopProducts();
+    await loadLowStock();
+  });
+
+  async function loadStats() {
+    try {
+      const data = await API.getAdminStats();
+      const s    = data.stats || data;
+      document.getElementById('stat-orders').textContent   = s.orders_today ?? '—';
+      document.getElementById('stat-revenue').textContent  = formatVND(s.revenue_month ?? 0);
+      document.getElementById('stat-products').textContent = s.total_products ?? '—';
+      document.getElementById('stat-users').textContent    = s.new_users ?? '—';
+      document.getElementById('stat-pending').textContent  = s.pending_orders ?? '—';
+      if (s.pending_orders) {
+        document.getElementById('pending-orders-badge').textContent = s.pending_orders;
+      }
+      // Revenue breakdown
+      if (s.weekly_revenue) {
+        document.getElementById('weekly-revenue').textContent     = formatVND(s.weekly_revenue);
+        document.getElementById('avg-daily-revenue').textContent  = formatVND(s.weekly_revenue / 7);
+        document.getElementById('max-daily-revenue').textContent  = formatVND(s.max_daily_revenue || 0);
+      }
+      // Order status breakdown
+      document.getElementById('cnt-pending').textContent   = s.pending_orders   || 0;
+      document.getElementById('cnt-shipping').textContent  = s.shipping_orders  || 0;
+      document.getElementById('cnt-delivered').textContent = s.delivered_orders || 0;
+      document.getElementById('cnt-cancelled').textContent = s.cancelled_orders || 0;
+
+      // Changes
+      if (s.orders_today_change) document.getElementById('stat-orders-change').textContent = `↑ ${s.orders_today_change}% so với hôm qua`;
+      if (s.revenue_change)      document.getElementById('stat-revenue-change').textContent = `↑ ${s.revenue_change}% tháng trước`;
+    } catch {
+      // Use placeholder numbers for demo
+      document.getElementById('stat-orders').textContent   = '—';
+      document.getElementById('stat-revenue').textContent  = '—';
+      document.getElementById('stat-products').textContent = '—';
+      document.getElementById('stat-users').textContent    = '—';
+      document.getElementById('stat-pending').textContent  = '—';
+    }
+  }
+
+  async function loadRecentOrders() {
+    const loading = document.getElementById('recent-orders-loading');
+    const wrap    = document.getElementById('recent-orders-wrap');
+    try {
+      const data   = await API.getAllOrders({ per_page: 8, sort: 'newest' });
+      const orders = data.data || data.orders || [];
+      loading.style.display = 'none';
+      wrap.style.display    = 'block';
+
+      document.getElementById('recent-orders-tbody').innerHTML = orders.length
+        ? orders.map(o => {
+            const st = STATUS_BADGES[o.status] || { label: o.status, cls: 'badge-secondary' };
+            return `
+              <tr>
+                <td><strong>#${o.id}</strong></td>
+                <td>
+                  <div style="font-weight:600;font-size:.85rem">${o.customer_name || o.shipping_name || '—'}</div>
+                  <div style="font-size:.75rem;color:#95a5a6">${o.customer_email || ''}</div>
+                </td>
+                <td>${o.items_count || 0} SP</td>
+                <td style="font-weight:700;color:#e74c3c">${formatVND(o.total)}</td>
+                <td><span class="badge badge-secondary" style="font-size:.7rem">${o.payment_method || 'COD'}</span></td>
+                <td><span class="badge ${st.cls}">${st.label}</span></td>
+                <td style="color:#95a5a6;font-size:.8rem">${formatDate(o.created_at)}</td>
+                <td>
+                  <a href="orders.html?id=${o.id}" class="btn btn-sm btn-outline">Xem</a>
+                </td>
+              </tr>`;
+          }).join('')
+        : '<tr><td colspan="8" style="text-align:center;color:#95a5a6;padding:30px">Chưa có đơn hàng.</td></tr>';
+    } catch {
+      loading.innerHTML = '<p style="color:#e74c3c">Không thể tải đơn hàng.</p>';
+    }
+  }
+
+  async function loadTopProducts() {
+    const el = document.getElementById('top-products');
+    try {
+      const data = await API.getProducts({ per_page: 5, sort: 'best_seller' });
+      const ps   = data.data || data.products || [];
+      el.innerHTML = ps.length ? `
+        <table style="width:100%;border-collapse:collapse;font-size:.85rem">
+          ${ps.map((p, i) => `
+            <tr style="border-bottom:1px solid #f8f9fa">
+              <td style="padding:10px 18px;width:28px;color:#95a5a6;font-weight:700">#${i+1}</td>
+              <td style="padding:10px 4px">
+                <div style="font-weight:600">${p.name}</div>
+                <div style="font-size:.75rem;color:#95a5a6">${p.category_name || ''}</div>
+              </td>
+              <td style="padding:10px 18px;font-weight:700;color:#e74c3c">${formatVND(p.sale_price || p.price)}</td>
+              <td style="padding:10px 18px;text-align:right;color:#95a5a6">${p.sold_count || 0} đã bán</td>
+            </tr>`).join('')}
+        </table>` : '<p style="padding:24px;color:#95a5a6;text-align:center">Không có dữ liệu.</p>';
+    } catch { el.innerHTML = '<p style="padding:24px;color:#95a5a6">Không thể tải.</p>'; }
+  }
+
+  async function loadLowStock() {
+    const el = document.getElementById('low-stock');
+    try {
+      const data = await API.getProducts({ per_page: 5, sort: 'stock_asc' });
+      const ps   = (data.data || data.products || []).filter(p => p.stock < 10);
+      el.innerHTML = ps.length ? `
+        <table style="width:100%;border-collapse:collapse;font-size:.85rem">
+          ${ps.map(p => `
+            <tr style="border-bottom:1px solid #f8f9fa">
+              <td style="padding:10px 18px">
+                <div style="font-weight:600">${p.name}</div>
+                <div style="font-size:.75rem;color:#95a5a6">${p.category_name || ''}</div>
+              </td>
+              <td style="padding:10px 18px;text-align:right">
+                <span class="badge ${p.stock === 0 ? 'badge-danger' : 'badge-warning'}">
+                  ${p.stock === 0 ? 'Hết hàng' : p.stock + ' còn lại'}
+                </span>
+              </td>
+            </tr>`).join('')}
+        </table>` : '<p style="padding:24px;color:#27ae60;text-align:center">✅ Tất cả hàng đủ kho.</p>';
+    } catch { el.innerHTML = '<p style="padding:24px;color:#95a5a6">Không thể tải.</p>'; }
+  }
+
+  // Sidebar helpers
+  function openSidebar() {
+    document.getElementById('admin-sidebar').classList.add('open');
+    document.getElementById('sidebar-overlay').classList.add('open');
+  }
+  function closeSidebar() {
+    document.getElementById('admin-sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+  function toggleSubMenu(id, link) {
+    const menu = document.getElementById(id);
+    if (!menu) return;
+    menu.classList.toggle('open');
+    const arrow = link.querySelector('.has-sub');
+    if (arrow) arrow.textContent = menu.classList.contains('open') ? '▾' : '▸';
+  }
+  function exportReport() {
+    showToast('Tính năng xuất báo cáo đang phát triển.', 'info');
+  }
+
+  function formatDate(str) {
+    if (!str) return '—';
+    return new Date(str).toLocaleDateString('vi-VN', { day:'2-digit', month:'2-digit', year:'numeric' });
+  }
+
+  // Override showToast for admin
+  window.showToast = function(msg, type='info') {
+    let c = document.querySelector('.admin-toast-container');
+    if (!c) { c = document.createElement('div'); c.className='admin-toast-container'; document.body.appendChild(c); }
+    const icons = { success:'✅', error:'❌', warning:'⚠️', info:'ℹ️' };
+    const t = document.createElement('div');
+    t.className = `admin-toast ${type}`;
+    t.innerHTML = `<span class="admin-toast-icon">${icons[type]||'ℹ️'}</span><span class="admin-toast-msg">${msg}</span><button class="admin-toast-close" onclick="this.closest('.admin-toast').remove()">✕</button>`;
+    c.appendChild(t);
+    setTimeout(() => t.remove(), 4000);
+  };
+</script>
+</body>
+</html>

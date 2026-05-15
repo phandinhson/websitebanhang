@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết sản phẩm - ShopVN</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<!-- ── Header ──────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" fill="white"/></svg></div>
+      <div><span>ShopVN</span><span class="brand-sub">Mua sắm tiện lợi</span></div>
+    </a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="../index.html">Trang chủ</a></li>
+        <li><a href="products.html">Sản phẩm</a></li>
+        <li><a href="products.html?sort=sale">Khuyến mãi</a></li>
+      </ul>
+    </nav>
+    <div class="header-search">
+      <input type="search" placeholder="Tìm kiếm sản phẩm...">
+      <button><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+    </div>
+    <div class="header-actions">
+      <a href="cart.html" class="cart-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" style="display:none">0</span>
+      </a>
+      <div class="auth-links" id="guest-links">
+        <a href="login.html">Đăng nhập</a>
+        <a href="register.html" class="btn-login">Đăng ký</a>
+      </div>
+      <div class="user-menu" id="user-menu" style="display:none">
+        <button class="user-avatar">US</button>
+        <div class="user-dropdown">
+          <a href="profile.html">👤 Tài khoản</a>
+          <a href="profile.html#orders">📦 Đơn hàng</a>
+          <hr><a href="#" data-logout>🚪 Đăng xuất</a>
+        </div>
+      </div>
+      <button class="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav">
+  <div class="mobile-nav-overlay"></div>
+  <div class="mobile-nav-panel">
+    <div class="mobile-nav-header"><span style="font-weight:700;color:#e74c3c">ShopVN</span><button class="mobile-nav-close">✕</button></div>
+    <nav class="mobile-nav-links">
+      <a href="../index.html">🏠 Trang chủ</a>
+      <a href="products.html">🛍️ Sản phẩm</a>
+      <a href="cart.html">🛒 Giỏ hàng</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ── Breadcrumb ──────────────────────────────────────────── -->
+<div class="page-banner" style="padding:20px 0">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">Trang chủ</a>
+      <span>/</span>
+      <a href="products.html">Sản phẩm</a>
+      <span>/</span>
+      <span id="breadcrumb-name">Chi tiết sản phẩm</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Loading State ───────────────────────────────────────── -->
+<div id="product-loading" class="container" style="padding:60px 0;text-align:center">
+  <div class="spinner" style="margin:0 auto"></div>
+  <p style="margin-top:14px;color:#999">Đang tải sản phẩm...</p>
+</div>
+
+<!-- ── Product Detail ──────────────────────────────────────── -->
+<div id="product-detail-content" class="product-detail" style="display:none">
+  <div class="container">
+    <div class="product-detail-inner">
+
+      <!-- Gallery -->
+      <div class="product-gallery">
+        <div class="gallery-main" id="gallery-main">
+          <div class="img-placeholder" style="height:400px;font-size:5rem">🛍️</div>
+        </div>
+        <div class="gallery-thumbs" id="gallery-thumbs"></div>
+      </div>
+
+      <!-- Info -->
+      <div class="product-info">
+        <div class="product-category" id="product-category"></div>
+        <h1 id="product-name">Đang tải...</h1>
+
+        <div class="product-meta">
+          <div class="product-rating">
+            <span class="stars" id="product-stars">★★★★☆</span>
+            <span class="rating-count" id="product-reviews">(0 đánh giá)</span>
+          </div>
+          <span class="product-sku" id="product-sku"></span>
+        </div>
+
+        <!-- Price -->
+        <div class="product-pricing">
+          <div class="product-price">
+            <span class="price-current" id="product-price">0₫</span>
+            <span class="price-original" id="product-original-price" style="display:none"></span>
+            <span class="price-discount" id="product-discount" style="display:none"></span>
+          </div>
+        </div>
+
+        <!-- Stock -->
+        <div style="margin-bottom:18px">
+          <span id="stock-status" class="in-stock">✅ Còn hàng</span>
+          <span id="stock-qty" style="font-size:.85rem;color:#999;margin-left:10px"></span>
+        </div>
+
+        <!-- Quantity -->
+        <div style="margin-bottom:8px">
+          <div class="form-label">Số lượng:</div>
+          <div class="quantity-selector">
+            <button class="qty-btn" onclick="changeQty(-1)">−</button>
+            <input class="qty-input" id="qty-input" type="number" value="1" min="1">
+            <button class="qty-btn" onclick="changeQty(1)">+</button>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="product-add-actions">
+          <button class="btn btn-primary btn-lg btn-add-cart" id="add-to-cart-btn" onclick="addToCartHandler()">
+            🛒 Thêm vào giỏ hàng
+          </button>
+          <button class="btn btn-outline btn-lg btn-buy-now" id="buy-now-btn" onclick="buyNowHandler()">
+            ⚡ Mua ngay
+          </button>
+        </div>
+
+        <!-- Features -->
+        <div class="product-features">
+          <div class="feature-item"><span class="feature-icon">✅</span> Hàng chính hãng 100%</div>
+          <div class="feature-item"><span class="feature-icon">🚚</span> Giao hàng nhanh toàn quốc</div>
+          <div class="feature-item"><span class="feature-icon">↩️</span> Đổi trả dễ dàng trong 30 ngày</div>
+          <div class="feature-item"><span class="feature-icon">🔒</span> Thanh toán an toàn & bảo mật</div>
+        </div>
+
+        <!-- Share -->
+        <div style="padding-top:18px;border-top:1px solid #eee;display:flex;align-items:center;gap:12px">
+          <span style="font-size:.88rem;color:#999">Chia sẻ:</span>
+          <button onclick="shareProduct('facebook')" class="btn btn-outline btn-sm">Facebook</button>
+          <button onclick="shareProduct('zalo')"    class="btn btn-outline btn-sm">Zalo</button>
+          <button onclick="copyLink()"              class="btn btn-outline btn-sm">📋 Sao chép link</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs: Description / Specs / Reviews -->
+    <div class="product-tabs">
+      <div class="tab-nav">
+        <button class="tab-btn active" data-tab="desc">Mô tả sản phẩm</button>
+        <button class="tab-btn" data-tab="specs">Thông số kỹ thuật</button>
+        <button class="tab-btn" data-tab="reviews">Đánh giá (<span id="reviews-count-tab">0</span>)</button>
+      </div>
+
+      <!-- Description -->
+      <div class="tab-content active" id="tab-desc">
+        <div class="card"><div class="card-body" id="product-description">
+          <p>Đang tải mô tả sản phẩm...</p>
+        </div></div>
+      </div>
+
+      <!-- Specs -->
+      <div class="tab-content" id="tab-specs">
+        <div class="card"><div class="card-body">
+          <table style="width:100%;border-collapse:collapse" id="specs-table">
+            <tbody id="specs-tbody">
+              <tr><td colspan="2" style="text-align:center;color:#999;padding:30px">Không có thông số kỹ thuật.</td></tr>
+            </tbody>
+          </table>
+        </div></div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="tab-content" id="tab-reviews">
+        <div class="card"><div class="card-body">
+          <div id="reviews-summary" style="display:flex;gap:32px;align-items:center;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid #eee">
+            <div style="text-align:center">
+              <div style="font-size:3rem;font-weight:800;color:#e74c3c" id="avg-rating">4.5</div>
+              <div class="stars" style="font-size:1.2rem">★★★★☆</div>
+              <div style="font-size:.8rem;color:#999;margin-top:4px" id="total-reviews">0 đánh giá</div>
+            </div>
+            <div style="flex:1" id="rating-bars">
+              <!-- Injected -->
+            </div>
+          </div>
+
+          <div id="reviews-list">
+            <p class="text-muted text-center" style="padding:30px">Chưa có đánh giá nào. Hãy là người đầu tiên!</p>
+          </div>
+
+          <!-- Write review (logged in) -->
+          <div id="write-review" style="margin-top:28px;padding-top:24px;border-top:1px solid #eee;display:none">
+            <h4 style="margin-bottom:16px">Viết đánh giá</h4>
+            <div class="form-group">
+              <label class="form-label">Đánh giá sao</label>
+              <div id="star-picker" style="display:flex;gap:6px;font-size:1.8rem;cursor:pointer">
+                <span data-star="1">☆</span><span data-star="2">☆</span>
+                <span data-star="3">☆</span><span data-star="4">☆</span><span data-star="5">☆</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nhận xét</label>
+              <textarea class="form-control" id="review-content" placeholder="Chia sẻ trải nghiệm của bạn..." rows="4"></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="submitReview()">Gửi đánh giá</button>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    <div class="section" style="padding-bottom:0">
+      <div class="section-header">
+        <h2 class="section-title">Sản phẩm liên quan</h2>
+        <a href="products.html" class="section-link">Xem thêm →</a>
+      </div>
+      <div class="products-grid" id="related-products">
+        <div class="product-card"><div class="product-card-img skeleton" style="aspect-ratio:1"></div><div class="product-card-body"><div class="skeleton" style="height:12px;width:60%;margin-bottom:8px"></div><div class="skeleton" style="height:16px;width:90%;margin-bottom:10px"></div><div class="skeleton" style="height:20px;width:50%"></div></div></div>
+        <div class="product-card"><div class="product-card-img skeleton" style="aspect-ratio:1"></div><div class="product-card-body"><div class="skeleton" style="height:12px;width:60%;margin-bottom:8px"></div><div class="skeleton" style="height:16px;width:90%;margin-bottom:10px"></div><div class="skeleton" style="height:20px;width:50%"></div></div></div>
+        <div class="product-card"><div class="product-card-img skeleton" style="aspect-ratio:1"></div><div class="product-card-body"><div class="skeleton" style="height:12px;width:60%;margin-bottom:8px"></div><div class="skeleton" style="height:16px;width:90%;margin-bottom:10px"></div><div class="skeleton" style="height:20px;width:50%"></div></div></div>
+        <div class="product-card"><div class="product-card-img skeleton" style="aspect-ratio:1"></div><div class="product-card-body"><div class="skeleton" style="height:12px;width:60%;margin-bottom:8px"></div><div class="skeleton" style="height:16px;width:90%;margin-bottom:10px"></div><div class="skeleton" style="height:20px;width:50%"></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer ──────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="../index.html" class="logo" style="color:#fff;margin-bottom:14px"><div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" fill="white"/></svg></div>ShopVN</a><p>Mua sắm trực tuyến uy tín hàng đầu Việt Nam.</p></div>
+      <div class="footer-col"><h4>Hỗ trợ</h4><ul><li><a href="#">Trợ giúp</a></li><li><a href="#">Đổi trả</a></li><li><a href="#">Vận chuyển</a></li></ul></div>
+      <div class="footer-col"><h4>ShopVN</h4><ul><li><a href="#">Giới thiệu</a></li><li><a href="#">Liên hệ</a></li></ul></div>
+      <div class="footer-col"><h4>Liên hệ</h4><ul class="footer-contact"><li>📞 1800 123 456</li><li>📧 hotro@shopvn.vn</li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 ShopVN. Bảo lưu mọi quyền.</p><div class="footer-payments"><span class="payment-badge">VISA</span><span class="payment-badge">MoMo</span><span class="payment-badge">COD</span></div></div>
+  </div>
+</footer>
+
+<div class="toast-container"></div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/products.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  let currentProduct = null;
+  let selectedRating = 0;
+
+  // ── Load product on page ready ────────────────────────────
+  document.addEventListener('appReady', async () => {
+    const id = new URLSearchParams(window.location.search).get('id');
+    if (!id) {
+      showError('Không tìm thấy sản phẩm.');
+      return;
+    }
+    await loadProduct(id);
+    if (Auth.isLoggedIn()) {
+      document.getElementById('write-review').style.display = 'block';
+    }
+  });
+
+  async function loadProduct(id) {
+    try {
+      const data = await API.getProduct(id);
+      currentProduct = data.product || data;
+      renderProduct(currentProduct);
+      loadRelated(currentProduct.category_id, id);
+    } catch {
+      showError('Không thể tải sản phẩm. Vui lòng thử lại.');
+    }
+  }
+
+  function renderProduct(p) {
+    document.getElementById('product-loading').style.display = 'none';
+    document.getElementById('product-detail-content').style.display = 'block';
+    document.title = `${p.name} - ShopVN`;
+
+    const hasDiscount  = p.sale_price && p.sale_price < p.price;
+    const currentPrice = hasDiscount ? p.sale_price : p.price;
+    const discountPct  = hasDiscount ? Math.round((1 - p.sale_price/p.price)*100) : 0;
+
+    // Breadcrumb
+    document.getElementById('breadcrumb-name').textContent = p.name;
+
+    // Category
+    const catEl = document.getElementById('product-category');
+    if (p.category_name) catEl.textContent = p.category_name;
+
+    // Name
+    document.getElementById('product-name').textContent = p.name;
+
+    // Rating
+    const rating = Math.round(p.rating || 4);
+    document.getElementById('product-stars').textContent = '★'.repeat(rating) + '☆'.repeat(5-rating);
+    document.getElementById('product-reviews').textContent = `(${p.reviews_count || 0} đánh giá)`;
+    document.getElementById('reviews-count-tab').textContent = p.reviews_count || 0;
+
+    // SKU
+    if (p.sku) document.getElementById('product-sku').textContent = `SKU: ${p.sku}`;
+
+    // Price
+    document.getElementById('product-price').textContent = formatVND(currentPrice);
+    if (hasDiscount) {
+      const origEl = document.getElementById('product-original-price');
+      const discEl = document.getElementById('product-discount');
+      origEl.textContent = formatVND(p.price);
+      discEl.textContent = `-${discountPct}%`;
+      origEl.style.display = '';
+      discEl.style.display = '';
+    }
+
+    // Stock
+    const stockEl  = document.getElementById('stock-status');
+    const stockQty = document.getElementById('stock-qty');
+    if (p.stock > 0) {
+      stockEl.textContent = '✅ Còn hàng';
+      stockEl.className   = 'in-stock';
+      stockQty.textContent = `(${p.stock} sản phẩm)`;
+      document.getElementById('qty-input').max = p.stock;
+    } else {
+      stockEl.textContent = '❌ Hết hàng';
+      stockEl.className   = 'out-stock';
+      document.getElementById('add-to-cart-btn').disabled = true;
+      document.getElementById('buy-now-btn').disabled     = true;
+    }
+
+    // Gallery
+    const images = p.images || (p.image ? [p.image] : []);
+    const main   = document.getElementById('gallery-main');
+    main.innerHTML = images.length
+      ? `<img src="${images[0]}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover">`
+      : `<div class="img-placeholder" style="height:400px;font-size:5rem">🛍️</div>`;
+
+    const thumbsContainer = document.getElementById('gallery-thumbs');
+    if (images.length > 1) {
+      thumbsContainer.innerHTML = images.map((img, i) => `
+        <div class="gallery-thumb ${i===0?'active':''}" onclick="changeImage('${img}', this)">
+          <img src="${img}" alt="${p.name} ${i+1}" loading="lazy">
+        </div>`).join('');
+    }
+
+    // Description
+    document.getElementById('product-description').innerHTML =
+      p.description || '<p class="text-muted">Không có mô tả.</p>';
+
+    // Specs
+    if (p.specifications) {
+      const specs = typeof p.specifications === 'string'
+        ? JSON.parse(p.specifications) : p.specifications;
+      document.getElementById('specs-tbody').innerHTML =
+        Object.entries(specs).map(([k, v]) => `
+          <tr style="border-bottom:1px solid #f0f0f0">
+            <td style="padding:10px 16px;width:35%;font-weight:600;background:#f8f9fa">${k}</td>
+            <td style="padding:10px 16px">${v}</td>
+          </tr>`).join('');
+    }
+
+    // Average rating
+    document.getElementById('avg-rating').textContent = (p.rating || 4.5).toFixed(1);
+    document.getElementById('total-reviews').textContent = `${p.reviews_count || 0} đánh giá`;
+  }
+
+  async function loadRelated(categoryId, excludeId) {
+    try {
+      const params = { per_page: 4 };
+      if (categoryId) params.category_id = categoryId;
+      const data = await API.getProducts(params);
+      const products = (data.data || data.products || []).filter(p => String(p.id) !== String(excludeId));
+      const container = document.getElementById('related-products');
+      container.innerHTML = products.slice(0, 4).map(p => Products.renderProductCard(p)).join('') || '<p class="text-muted">Không có sản phẩm liên quan.</p>';
+    } catch { /* noop */ }
+  }
+
+  function changeImage(src, thumb) {
+    const main = document.getElementById('gallery-main');
+    main.innerHTML = `<img src="${src}" alt="Ảnh sản phẩm" style="width:100%;height:100%;object-fit:cover">`;
+    document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+    if (thumb) thumb.classList.add('active');
+  }
+
+  function changeQty(delta) {
+    const input = document.getElementById('qty-input');
+    const max   = parseInt(input.max) || 99;
+    input.value = Math.max(1, Math.min(max, parseInt(input.value) + delta));
+  }
+
+  async function addToCartHandler() {
+    if (!currentProduct) return;
+    const qty = parseInt(document.getElementById('qty-input').value) || 1;
+    const btn = document.getElementById('add-to-cart-btn');
+    btn.disabled = true;
+    btn.textContent = 'Đang thêm...';
+    try {
+      await Cart.addProduct(currentProduct, qty);
+      showToast('Đã thêm vào giỏ hàng!', 'success');
+    } catch {
+      showToast('Không thể thêm vào giỏ hàng.', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '🛒 Thêm vào giỏ hàng';
+    }
+  }
+
+  async function buyNowHandler() {
+    if (!currentProduct) return;
+    const qty = parseInt(document.getElementById('qty-input').value) || 1;
+    try {
+      await Cart.addProduct(currentProduct, qty);
+      window.location.href = 'checkout.html';
+    } catch {
+      showToast('Không thể xử lý. Vui lòng thử lại.', 'error');
+    }
+  }
+
+  function showError(msg) {
+    document.getElementById('product-loading').innerHTML =
+      `<div class="alert alert-danger">${msg}</div>
+       <a href="products.html" class="btn btn-outline" style="margin-top:12px">← Quay lại</a>`;
+  }
+
+  // Star picker
+  document.querySelectorAll('#star-picker span').forEach(star => {
+    star.addEventListener('click', () => {
+      selectedRating = parseInt(star.dataset.star);
+      document.querySelectorAll('#star-picker span').forEach((s, i) => {
+        s.textContent = i < selectedRating ? '★' : '☆';
+        s.style.color = i < selectedRating ? '#f39c12' : '#ccc';
+      });
+    });
+  });
+
+  async function submitReview() {
+    const content = document.getElementById('review-content').value.trim();
+    if (!selectedRating) { showToast('Vui lòng chọn số sao.', 'warning'); return; }
+    if (!content)        { showToast('Vui lòng nhập nhận xét.', 'warning'); return; }
+    showToast('Đã gửi đánh giá. Cảm ơn bạn!', 'success');
+    document.getElementById('review-content').value = '';
+  }
+
+  function shareProduct(platform) {
+    const url = encodeURIComponent(window.location.href);
+    if (platform === 'facebook') {
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+    } else {
+      showToast('Đã sao chép link!', 'info');
+    }
+  }
+  function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(() => showToast('Đã sao chép link!', 'success'));
+  }
+</script>
+</body>
+</html>

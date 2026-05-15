@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập - ShopVN</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<!-- ── Header (minimal) ────────────────────────────────────── -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" fill="white"/></svg></div>
+      <div><span>ShopVN</span><span class="brand-sub">Mua sắm tiện lợi</span></div>
+    </a>
+    <div style="flex:1"></div>
+    <div style="font-size:.9rem;color:#999">
+      Chưa có tài khoản? <a href="register.html" style="color:#e74c3c;font-weight:600">Đăng ký ngay</a>
+    </div>
+  </div>
+</header>
+
+<!-- ── Login Page ───────────────────────────────────────────── -->
+<div class="auth-page">
+  <div class="auth-card">
+
+    <div class="auth-logo">🔑</div>
+    <h1 class="auth-title">Đăng nhập</h1>
+    <p class="auth-subtitle">Chào mừng trở lại! Vui lòng đăng nhập vào tài khoản của bạn.</p>
+
+    <!-- Alert -->
+    <div id="login-alert" style="display:none"></div>
+
+    <form id="login-form" onsubmit="handleLogin(event)" novalidate>
+
+      <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input type="email" id="email" class="form-control"
+          placeholder="email@example.com" required autocomplete="email">
+        <div class="form-error" id="email-error"></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Mật khẩu</label>
+        <div class="password-field" style="position:relative">
+          <input type="password" id="password" class="form-control"
+            placeholder="Nhập mật khẩu..." required autocomplete="current-password"
+            style="padding-right:44px">
+          <button type="button" class="show-password-toggle" id="show-pw-btn"
+            style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem">
+            👁️
+          </button>
+        </div>
+        <div class="form-error" id="password-error"></div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.88rem">
+          <input type="checkbox" id="remember-me" style="accent-color:#e74c3c">
+          Ghi nhớ đăng nhập
+        </label>
+        <a href="#" style="font-size:.88rem;color:#e74c3c">Quên mật khẩu?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block btn-lg" id="login-btn">
+        Đăng nhập
+      </button>
+
+    </form>
+
+    <div class="auth-divider">hoặc tiếp tục với</div>
+
+    <div style="display:flex;gap:10px;margin-bottom:20px">
+      <button class="btn btn-outline btn-block" onclick="socialLogin('google')"
+        style="flex:1;gap:8px">
+        <span>🌐</span> Google
+      </button>
+      <button class="btn btn-outline btn-block" onclick="socialLogin('facebook')"
+        style="flex:1;gap:8px">
+        <span>📘</span> Facebook
+      </button>
+    </div>
+
+    <div class="auth-footer">
+      Chưa có tài khoản?
+      <a href="register.html">Đăng ký miễn phí</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer minimal ──────────────────────────────────────── -->
+<div style="text-align:center;padding:20px;font-size:.82rem;color:#bdc3c7">
+  © 2025 ShopVN · <a href="#" style="color:#bdc3c7">Điều khoản</a> · <a href="#" style="color:#bdc3c7">Bảo mật</a>
+</div>
+
+<div class="toast-container"></div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  // Redirect if already logged in
+  document.addEventListener('appReady', () => {
+    Auth.redirectIfAuth();
+  });
+
+  // Password toggle
+  const pwInput = document.getElementById('password');
+  const pwBtn   = document.getElementById('show-pw-btn');
+  pwBtn.addEventListener('click', () => {
+    const isText = pwInput.type === 'text';
+    pwInput.type = isText ? 'password' : 'text';
+    pwBtn.textContent = isText ? '👁️' : '🙈';
+  });
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    clearErrors();
+
+    const email    = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const alertEl  = document.getElementById('login-alert');
+    const btn      = document.getElementById('login-btn');
+
+    // Validate
+    let valid = true;
+    if (!email) { showFieldError('email-error', 'Vui lòng nhập email.'); valid = false; }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showFieldError('email-error', 'Email không hợp lệ.'); valid = false;
+    }
+    if (!password) { showFieldError('password-error', 'Vui lòng nhập mật khẩu.'); valid = false; }
+    if (!valid) return;
+
+    btn.disabled    = true;
+    btn.textContent = 'Đang đăng nhập...';
+    alertEl.style.display = 'none';
+
+    try {
+      const data = await API.login(email, password);
+      showToast('Đăng nhập thành công!', 'success');
+
+      // Redirect
+      const params   = new URLSearchParams(window.location.search);
+      const redirect = params.get('redirect');
+      setTimeout(() => {
+        window.location.href = redirect || '../index.html';
+      }, 800);
+    } catch (err) {
+      alertEl.innerHTML    = `<div class="alert alert-danger">${err.message || 'Email hoặc mật khẩu không đúng.'}</div>`;
+      alertEl.style.display = 'block';
+      btn.disabled    = false;
+      btn.textContent = 'Đăng nhập';
+    }
+  }
+
+  function showFieldError(id, msg) {
+    const el = document.getElementById(id);
+    if (el) { el.textContent = msg; el.previousElementSibling?.classList?.add('error'); }
+  }
+  function clearErrors() {
+    document.querySelectorAll('.form-error').forEach(el => el.textContent = '');
+    document.querySelectorAll('.form-control').forEach(el => el.classList.remove('error'));
+  }
+  function socialLogin(provider) {
+    showToast(`Đăng nhập với ${provider} chưa được hỗ trợ.`, 'warning');
+  }
+</script>
+</body>
+</html>
